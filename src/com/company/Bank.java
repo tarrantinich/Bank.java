@@ -15,17 +15,17 @@ public class Bank {
             if (word.length() != 0 && word.matches("\\d*$")) {
                 int word1 = Integer.parseInt(word);
                 return word1;
-            } else System.out.println("Вы ввели недопустимый формат данных");
+            } else System.out.println("Вы ввели недопустимый формат данных. Нужно вводить только цифры");
         }
     }
-    
+
     private static String inputString(String message) {
         while (true) {
             System.out.println(message);
             String word = scanner.nextLine();
             if (word.length() != 0 && word.matches("[а-яА-Я]*$")) {
                 return word;
-            } else System.out.println("Вы ввели недопустимый формат данных");
+            } else System.out.println("Вы ввели недопустимый формат данных. Нужно вводить только буквы.");
         }
     }
 
@@ -45,24 +45,30 @@ public class Bank {
     }
 
     public void payment() {
-        try {
-            int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"");
-            int amount = inputInt("Введите сумму платежа");
-            for (Client i : clientsList) {
-                if (i.getCardNumber() == cardNumber) i.pay(amount);
+
+        int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"");
+        int amount = inputInt("Введите сумму платежа");
+        String temp = null;
+        for (Client i : clientsList) {
+            if (i.getCardNumber() == cardNumber) {
+                i.pay(amount);
+                temp = "Операция совершена";
             }
-        } catch (Exception e) {
-            System.out.println("Такого клиента не существует");
         }
+        if (temp.length() == 0) System.out.println("Такого клиента не существует");
     }
 
     public void deposits() {
         int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"");
         int amount = inputInt("Введите сумму пополнения");
+        String temp = null;
         for (Client i : clientsList) {
-            if (i.getCardNumber() == cardNumber) i.addMoney(amount);
+            if (i.getCardNumber() == cardNumber) {
+                i.addMoney(amount);
+                temp = "Операция совершена";
+            }
         }
-        System.out.println("Такого клиента не существует");
+        if (temp.length() == 0) System.out.println("Такого клиента не существует");
     }
 
     public void listOfClients() {
