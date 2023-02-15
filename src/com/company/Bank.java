@@ -1,44 +1,39 @@
 package com.company;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Function;
 
 public class Bank {
     private Set<Client> clientsList = new HashSet<>();
     private static Scanner scanner = new Scanner(System.in);
 
-     static <T> T inputInt(String message, Function<String, T> converter) {
+    static int inputInt(String message) {
         while (true) {
-            try {
-                System.out.println(message);
-                return converter.apply(scanner.nextLine());
-            } catch (Exception e) {
-                System.out.println("Вы ввели недопустимый формат данных ");
-            }
+            System.out.println(message);
+            String word = scanner.nextLine();
+            if (word.length() != 0 && word.matches("\\d*$")) {
+                int word1 = Integer.parseInt(word);
+                return word1;
+            } else System.out.println("Вы ввели недопустимый формат данных");
         }
     }
-
+    
     private static String inputString(String message) {
         while (true) {
-                System.out.println(message);
-                String word = scanner.nextLine();
-                for (int i = 0; i < word.length(); i++) {
-                    if (Character.isDigit(word.charAt(i))==false) {
-                        return word;
-                    }else System.out.println("Вы ввели недопустимый формат данных ");
-                    break;
-                }
+            System.out.println(message);
+            String word = scanner.nextLine();
+            if (word.length() != 0 && word.matches("[а-яА-Я]*$")) {
+                return word;
+            } else System.out.println("Вы ввели недопустимый формат данных");
         }
     }
 
     public void addClient() {
         System.out.println("Введите информацию о клиенте.");
         String clientName = inputString("Введите имя:");
-        int cardNumber = inputInt("Введите номер карты: ", Integer::valueOf);
-        int currentAccount = inputInt("Введите текущий баланс карты: ", Integer::valueOf);
+        int cardNumber = inputInt("Введите номер карты: ");
+        int currentAccount = inputInt("Введите текущий баланс карты: ");
         Client client = new Client(clientName, cardNumber, currentAccount);
         if (clientsList.contains(client)) {
             System.out.println("Клиент с таким номером карты уже существует");
@@ -51,19 +46,19 @@ public class Bank {
 
     public void payment() {
         try {
-            int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"", Integer::valueOf);
-            int amount = inputInt("Введите сумму платежа", Integer::valueOf);
+            int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"");
+            int amount = inputInt("Введите сумму платежа");
             for (Client i : clientsList) {
                 if (i.getCardNumber() == cardNumber) i.pay(amount);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Такого клиента не существует");
         }
     }
 
     public void deposits() {
-        int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"", Integer::valueOf);
-        int amount = inputInt("Введите сумму пополнения", Integer::valueOf);
+        int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"");
+        int amount = inputInt("Введите сумму пополнения");
         for (Client i : clientsList) {
             if (i.getCardNumber() == cardNumber) i.addMoney(amount);
         }
