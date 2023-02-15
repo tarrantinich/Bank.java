@@ -1,11 +1,13 @@
 package com.company;
 
-public class Client {
-    public String name;
-    public String cardNumber;
-    public int currentAccount;
+import java.util.Objects;
 
-    public Client(String name, String cardNumber, int currentAccount) {
+public class Client {
+    private String name;
+    private int cardNumber;
+    private int currentAccount;
+
+    public Client(String name, int cardNumber, int currentAccount) {
         this.name = name;
         this.cardNumber = cardNumber;
         this.currentAccount = currentAccount;
@@ -32,8 +34,25 @@ public class Client {
         return currentAccount;
     }
 
+    public int getCardNumber() {
+        return cardNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || !obj.getClass().equals(Client.class)) return false;
+        Client newClient = (Client) obj;
+        return this.cardNumber == newClient.cardNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardNumber);
+    }
+
     @Override
     public String toString() {
-        return String.format("%s %s %s", " Имя: " + name + '\n', "Номер карты - " + cardNumber + '\n', "Текущий счёт - " + currentAccount + '\n');
+        return String.format("%s %s %s", " Имя: " + name + ",", "Номер карты: " + cardNumber + ",", "Текущий счёт: " + currentAccount + '\n');
     }
 }

@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Bank alfaBank = new Bank();
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Выберите операцию и введите её номер:");
             System.out.println("1. Добавить нового клиента");
@@ -13,7 +14,7 @@ public class Main {
             System.out.println("4. Вывести информацию о клиентах");
             System.out.println("0. Выход");
 
-            Scanner scanner = new Scanner(System.in);
+
             int operation = scanner.nextInt();
             if (0 == operation) {
                 System.out.println("Программа завершена!");
