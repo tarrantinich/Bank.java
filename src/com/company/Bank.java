@@ -27,11 +27,11 @@ public class Bank {
                 System.out.println(message);
                 String word = scanner.nextLine();
                 char[] wordChars = word.toCharArray();
-                if (wordChars.length ==0) {
+                if (wordChars.length == 0) {
                     throw new MyInputException("Только буквы");
                 }
                 for (char c : wordChars) {
-                    if (Character.isDigit(c) ) {
+                    if (Character.isDigit(c)) {
                         throw new MyInputException("Только буквы");
                     }
                 }
