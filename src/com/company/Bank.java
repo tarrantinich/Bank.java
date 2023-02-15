@@ -8,24 +8,34 @@ public class Bank {
     private Set<Client> clientsList = new HashSet<>();
     private static Scanner scanner = new Scanner(System.in);
 
-    static int inputInt(String message) {
+    public static int inputInt(String message) {
         while (true) {
-            System.out.println(message);
-            String word = scanner.nextLine();
-            if (word.length() != 0 && word.matches("\\d*$")) {
+            try {
+                System.out.println(message);
+                String word = scanner.nextLine();
                 int word1 = Integer.parseInt(word);
                 return word1;
-            } else System.out.println("Вы ввели недопустимый формат данных. Нужно вводить только цифры");
+            } catch (Exception e) {
+                System.out.println("Вы ввели недопустимый формат данных. Нужно вводить только цифры");
+            }
         }
     }
 
-    private static String inputString(String message) {
+    public static String inputString(String message) {
         while (true) {
-            System.out.println(message);
-            String word = scanner.nextLine();
-            if (word.length() != 0 && word.matches("[а-яА-Я]*$")) {
+            try {
+                System.out.println(message);
+                String word = scanner.nextLine();
+                char[] wordChars = word.toCharArray();
+                for (char c : wordChars) {
+                    if (Character.isDigit(c)) {
+                        throw new MyInputException("Только буквы");
+                    }
+                }
                 return word;
-            } else System.out.println("Вы ввели недопустимый формат данных. Нужно вводить только буквы.");
+            } catch (Exception e) {
+                System.out.println("Вы ввели недопустимый формат данных. Нужно вводить только буквы");
+            }
         }
     }
 
