@@ -2,20 +2,14 @@ package com.company;
 
 import java.util.Scanner;
 
+import static com.company.Bank.inputInt;
 public class Main {
     public static void main(String[] args) {
         Bank alfaBank = new Bank();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Выберите операцию и введите её номер:");
-            System.out.println("1. Добавить нового клиента");
-            System.out.println("2. Оплата");
-            System.out.println("3. Внесение средств");
-            System.out.println("4. Вывести информацию о клиентах");
-            System.out.println("0. Выход");
-
-
-            int operation = scanner.nextInt();
+            String message  = "Выберите операцию и введите её номер:"+'\n'+"1. Добавить нового клиента"+'\n'+"2. Оплата"+'\n'+"3. Внесение средств"+'\n'+"4. Вывести информацию о клиентах"+'\n'+"0. Выход";
+            int operation = inputInt(message, Integer::valueOf);
             if (0 == operation) {
                 System.out.println("Программа завершена!");
                 break;

@@ -10,7 +10,7 @@ public class Bank {
     private Set<Client> clientsList = new HashSet<>();
     private static Scanner scanner = new Scanner(System.in);
 
-    private static <T> T inputInt(String message, Function<String, T> converter) {
+     static <T> T inputInt(String message, Function<String, T> converter) {
         while (true) {
             try {
                 System.out.println(message);
@@ -34,7 +34,7 @@ public class Bank {
         }
     }
 
-    public void addClient() throws InputMismatchException {
+    public void addClient() {
         System.out.println("Введите информацию о клиенте.");
         String clientName = inputString("Введите имя:");
         int cardNumber = inputInt("Введите номер карты: ", Integer::valueOf);
@@ -50,12 +50,15 @@ public class Bank {
     }
 
     public void payment() {
-        int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"", Integer::valueOf);
-        int amount = inputInt("Введите сумму платежа", Integer::valueOf);
-        for (Client i : clientsList) {
-            if (i.getCardNumber() == cardNumber) i.pay(amount);
+        try {
+            int cardNumber = inputInt("Выберите клиента: \"ведите номер карты\"", Integer::valueOf);
+            int amount = inputInt("Введите сумму платежа", Integer::valueOf);
+            for (Client i : clientsList) {
+                if (i.getCardNumber() == cardNumber) i.pay(amount);
+            }
+        }catch (Exception e){
+            System.out.println("Такого клиента не существует");
         }
-        System.out.println("Такого клиента не существует");
     }
 
     public void deposits() {
